@@ -1,6 +1,5 @@
 using System;
 using System.Numerics;
-using System.Threading.Tasks;
 using Dalamud.Interface.Internal;
 using Dalamud.Interface.Windowing;
 using ImGuiNET;
@@ -39,7 +38,7 @@ public class MainWindow : Window, IDisposable
         ImGui.SameLine();
         if (Connection.getInstance().client != null) {
             if (Connection.getInstance().IsServerRunning() ||
-                // Lost ownership over the server due some plugin crashed us, but its still running indipendent.
+                // Lost ownership over the server due some plugin crashed us, but it might still running indipendent.
                 // If the client can connect to the server we know its still there or the user allready runs the Intiface Central Server or a similair service
                 Connection.getInstance().client.Connected
                 ) {
@@ -57,8 +56,8 @@ public class MainWindow : Window, IDisposable
                         ImGui.TableSetColumnIndex(1);
                         ImGui.Text(Connection.getInstance().client.Devices[d].Name);
                         ImGui.TableSetColumnIndex(2);
-                        if (ImGui.Button("Test Vibrate 5s"))
-                            Connection.getInstance().Vibrate(5000);
+                        if (ImGui.Button("Test Vibrate 5s with 30%"))
+                            Connection.getInstance().Vibrate(5000,0.3f);
                     }
                     ImGui.EndTable();
                 }
@@ -68,14 +67,21 @@ public class MainWindow : Window, IDisposable
                     ImGui.Text("Starting server... please wait.");
                 } else {
                     if (ImGui.Button("Connect"))
-                        Connection.getInstance().CreateConnection(); // Async on purpose
+                        Connection.getInstance().StartServer(); // Async on purpose
                 }
             }
         }
 
         if (ImGui.CollapsingHeader("Debug Output")) {
             string str = Connection.getInstance().sb.ToString();
-            ImGui.InputTextMultiline("##source", ref str, (uint)str.Length, new Vector2(ImGui.GetContentRegionMax().X, ImGui.GetTextLineHeight() * 16), ImGuiInputTextFlags.ReadOnly);
+            ImGui.InputTextMultiline(
+                "##source", 
+                ref str, 
+                (uint)str.Length, 
+                new Vector2(
+                    ImGui.GetContentRegionMax().X, 
+                    ImGui.GetTextLineHeight() * 16), 
+                ImGuiInputTextFlags.ReadOnly);
         }
     }
 }

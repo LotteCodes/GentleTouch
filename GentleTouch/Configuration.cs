@@ -2,11 +2,9 @@ using Dalamud.Configuration;
 using Dalamud.Plugin;
 using System;
 
-namespace GentleTouch
-{
+namespace GentleTouch {
     [Serializable]
-    public class Configuration : IPluginConfiguration
-    {
+    public class Configuration : IPluginConfiguration {
         public int Version { get; set; } = 0;
 
         public bool UseEmbeeded { get; set; } = true;

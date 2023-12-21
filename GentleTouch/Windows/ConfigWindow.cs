@@ -24,7 +24,6 @@ public class ConfigWindow : Window, IDisposable {
 
 
     public override void Draw() {
-        // can't ref a property, so use a local copy
         if (ImGui.CollapsingHeader("Communication Managers")) {
             var ble = this.Configuration.BluetoothLEManager;
             if (ImGui.Checkbox("Bluetooth LE", ref ble)) {
