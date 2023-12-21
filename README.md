@@ -1,76 +1,79 @@
-> ⚠️ **Don't click Fork!**
-> 
-> This is a GitHub Template repo. If you want to use this for a plugin, just [use this template][new-repo] to make a new repo!
->
-> ![image](https://github.com/goatcorp/SamplePlugin/assets/16760685/d9732094-e1ed-4769-a70b-58ed2b92580c)
+# GentleTouch
 
-# SamplePlugin
-
-[![Use This Template badge](https://img.shields.io/badge/Use%20This%20Template-0?logo=github&labelColor=grey)][new-repo]
-
-
-Simple example plugin for Dalamud.
-
-This is not designed to be the simplest possible example, but it is also not designed to cover everything you might want to do. For more detailed questions, come ask in [the Discord](https://discord.gg/holdshift).
-
-## Main Points
-
-* Simple functional plugin
-  * Slash command
-  * Main UI
-  * Settings UI
-  * Image loading
-  * Plugin json
-* Simple, slightly-improved plugin configuration handling
-* Project organization
-  * Copies all necessary plugin files to the output directory
-    * Does not copy dependencies that are provided by dalamud
-    * Output directory can be zipped directly and have exactly what is required
-  * Hides data files from visual studio to reduce clutter
-    * Also allows having data files in different paths than VS would usually allow if done in the IDE directly
-
-
-The intention is less that any of this is used directly in other projects, and more to show how similar things can be done.
+Gentle Touch is a Dalamud plugin adding functionality for the Buttplug.io framework.
+Buttplug.io is not only limited to Buttplugs but it will propably support any remote controllable vibrator device that exists.
 
 ## How To Use
 
 ### Getting Started
 
-To begin, [clone this template repository][new-repo] to your own GitHub account. This will automatically bring in everything you need to get a jumpstart on development. You do not need to fork this repository unless you intend to contribute modifications to it.
+After starting the plugin it will automatically connect either to the Intiface(R) Central app (If available)
+or it will start the service by itself when not available yet.
 
-Be sure to also check out the [Dalamud Developer Docs][dalamud-docs] for helpful information about building your own plugin. The Developer Docs includes helpful information about all sorts of things, including [how to submit][submit] your newly-created plugin to the official repository. Assuming you use this template repository, the provided project build configuration and license are already chosen to make everything a breeze.
+Any device in reach will be automatically detected.
+You can see the list of detected devices in the main window (/gentle)
+If your device doesnt show up in the list after 1-2 seconds:
+- Make sure your device is in reach and you dont block the signal somehow (Having it covered up by ur leg or like that)
+If this isnt the case then the options divert now on what service you are using:
 
-[new-repo]: https://github.com/new?template_name=SamplePlugin&template_owner=goatcorp
-[dalamud-docs]: https://dalamud.dev
-[submit]: https://dalamud.dev/plugin-development/plugin-submission
+#### Intiface(R) Central App
+- Open the app and go to settings.
+- Here you now select what kind of connection your device uses.
+- After selecting the correct protocols you can start the server again and it should detect your device.
 
-### Prerequisites
+#### Only using the plugin
+- Open the Gentle Touch Configuration (/gentleconf or /gentlec)
+- Select the protocols that your device is using
+- Click Save and it will restart the plugin service with the new protocols
+- It now should find your device
 
-SamplePlugin assumes all the following prerequisites are met:
+### Functions
 
-* XIVLauncher, FINAL FANTASY XIV, and Dalamud have all been installed and the game has been run with Dalamud at least once.
-* XIVLauncher is installed to its default directories and configurations.
-  * If a custom path is required for Dalamud's dev directory, it must be set with the `DALAMUD_HOME` environment variable.
-* A .NET Core 7 SDK has been installed and configured, or is otherwise available. (In most cases, the IDE will take care of this.)
+1. You can let any device listed run a test vibration. This test will make the device vibrate for 5 seconds at 50% intensity.
+2. When you land a critical or direct hit the device will start vibrating.
+
+I maybe plan to add more functionality for more immersive ERP and others.
+To name some:
+1. Detecting selected characters motion changes to transfer the motion that the character did / expierinced to your device.
+2. Customizable Events with extended triggers, like not dropping any GCD, running a good rotation and so on.
+3. Parsing chat commands so other players can controll ur device with a secret trigger word you choose
+4. Adding pattern functionality
+
+### Protocols
+
+1. Bluetooth LE
+	Propably the most common protocol. 
+	Lovens devices (Lush and Nora) should find your device with this.
+	Requires you having either a build-in Bluetooth feature or a Bluetooth dongle.
+2. Lovense Dongle
+	The official dongle from their store.
+	It has a slightly different protocol than common bluetooth dongles, thou its based on the same technology.
+	It should work with all Lovense products that have the compatibility listed on their product page.
+3. Serial Port
+	Honestly im not sure why it exists but i guess some devices are wired and this is for them?
+4. XInput
+	Well if you know if your device needs this or not then you know more than me.
 
 ### Building
 
-1. Open up `SamplePlugin.sln` in your C# editor of choice (likely [Visual Studio 2022](https://visualstudio.microsoft.com) or [JetBrains Rider](https://www.jetbrains.com/rider/)).
-2. Build the solution. By default, this will build a `Debug` build, but you can switch to `Release` in your IDE.
-3. The resulting plugin can be found at `SamplePlugin/bin/x64/Debug/SamplePlugin.dll` (or `Release` if appropriate.)
+This section is only relevant if you want to compile the Plugin yourself.
+Its not relevant for you if you just want to use the Plugin or dont know how to programm.
 
-### Activating in-game
+The plugin itself is simply build using any IDE with c# capacity.
 
-1. Launch the game and use `/xlsettings` in chat or `xlsettings` in the Dalamud Console to open up the Dalamud settings.
-    * In here, go to `Experimental`, and add the full path to the `SamplePlugin.dll` to the list of Dev Plugin Locations.
-2. Next, use `/xlplugins` (chat) or `xlplugins` (console) to open up the Plugin Installer.
-    * In here, go to `Dev Tools > Installed Dev Plugins`, and the `SamplePlugin` should be visible. Enable it.
-3. You should now be able to use `/pmycommand` (chat) or `pmycommand` (console)!
-
-Note that you only need to add it to the Dev Plugin Locations once (Step 1); it is preserved afterwards. You can disable, enable, or load your plugin on startup through the Plugin Installer.
-
-### Reconfiguring for your own uses
-
-Basically, just replace all references to `SamplePlugin` in all of the files and filenames with your desired name, then start building the plugin of your dreams. You'll figure it out 😁
-
-Dalamud will load the JSON file (by default, `SamplePlugin/SamplePlugin.json`) next to your DLL and use it for metadata, including the description for your plugin in the Plugin Installer. Make sure to update this with information relevant to _your_ plugin!
+The Buttplug.io framework requires the use of their server. 
+Wich is run localy on your pc, it wont need any acc creation nor will it permanently store any information from you.
+You can either use their official server called Intiface(R) Central or use the embeeded feature.
+To use embeeded you have to build the server from their server files, its written in Rust. (I did this allready and shipping the .exe with the plugin)
+For any case that you want to build it yourself (Im to slow updating, you just dont trust me, and so on...)
+and if you are not familiar with Rust then heres a simple step by step guide to build a Rust project:
+1. Download and Install Rust from their official website.
+2. Clone the Intiface Engine GitHub
+3. (Optional, for debuging) Download VS Code (You maybe can use Visual Studio allready but im not sure)
+3. b. Open VS Code get the Rust Analyzer Extension
+3. c. Get also any compiler of your choise that supports Rust.
+3. d. Open the Project with VS Code (Open the directory of the project) and VS Code will ask you if they should configure the Rust project for you; say yes.
+4. Open the Terminal (Terminal shortcut in VSCode: "CTRL+Shift+`")
+5. Run the Rust build command: "cargo build"
+It now should have created ur .exe file.
+To validate it, run it from console with the argument "--version".

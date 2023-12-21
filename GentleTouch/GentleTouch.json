@@ -1,0 +1,15 @@
+{
+  "Author": "Lotte",
+  "Name": "Gentle Touch",
+  "Punchline": "Adds functionality for the BlutPlug library",
+  "Description": "A description that shows up in /xlplugins. List any major slash-command(s).",
+  "InternalName": "GentleTouch",
+  "ApplicableVersion": "any",
+  "Tags": [
+    "nsfw",
+    "gentle",
+    "touch",
+    "butplug",
+    "vibrator"
+  ]
+}
