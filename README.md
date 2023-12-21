@@ -2,6 +2,7 @@
 
 Gentle Touch is a Dalamud plugin adding functionality for the Buttplug.io framework.
 Buttplug.io is not only limited to Buttplugs but it will propably support any remote controllable vibrator device that exists.
+Its windows only yet. (You could make some simple edits to Connection.cs to make it run on your non-windows system)
 
 ## How To Use
 
